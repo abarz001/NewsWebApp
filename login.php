@@ -19,14 +19,41 @@
 			//the user id and password match,
 			// set the session	
 			$_SESSION['userLoggedIn'] = true;
-			$_SESSION['email'] = $email;
-			
+			$_SESSION['email'<?php
+
+	//include database information and user information
+	require 'authenticate.php';
+	session_start();
+	$errorMessage = '';
+
+	//are user ID and Password provided?
+	if (isset($_POST['email']) && isset($_POST['pass'])) 
+	{
+
+		$email = $_POST['email'];
+		$pass = $_POST['pass'];
+
+		// Authenticate user
+		if (authenticate($email, $pass))
+		{
+			//the user id and password match,
+			// set the session	
+			$_SESSION['userLoggedIn'] = true;
+            $_SESSION['email'] = $email;
+            if (CheckIfUserIsApproved($email, $pass))
+            {
+                $_SESSION['ApprovedByAdmin'] = true;
+            }
+            else 
+            {
+                $_SESSION['ApprovedByAdmin'] = false;
+            }
 			// after login we move to the home page
 			header('Location: index.php');
 			exit;
 		} else 
 		{
-			$errorMessage = 'Sorry, wrong username/password';
+			$errorMessage = 'Sorry, wrong username/password. Please try again.<br>';
 		}
 	}
 ?>
