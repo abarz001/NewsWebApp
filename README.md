@@ -1,2 +1,2 @@
 # abarz001_cs518
-I will use this repository for my project across the semester.
+The 'myadmin' user is necessary to be created in MySQL. Script for that is provided.
