@@ -39,8 +39,25 @@
 	  }
 	  else
 	  {
-		 return true; 
-	  }
+        while ($result = $query_result->fetch_assoc())
+        {
+            //Update last login time in database
+            $currentDateTime = date('Y-m-d H:i:s');
+            $updateStatement = "UPDATE $userTable 
+            SET Last_Login = '$currentDateTime'
+            WHERE Email = '$email'";
+            $update_result = $conn->query($updateStatement);
+
+            $_SESSION['firstName'] = $result["Name_First"];
+            $_SESSION['lastName'] = $result["Name_Last"];
+            $_SESSION['organization'] = $result["Organization"];
+            $_SESSION['lastLogin'] = $currentDateTime;
+            $_SESSION['adminUser'] = $result["Admin_User"];
+            $_SESSION['emailVerified'] = $result["Email_Verified"];
+            $_SESSION['approvedByAdmin'] = $result["Approved_By_Admin"];
+        }
+        return true;
+    }
     }
 
     function CheckIfUserIsApproved($email, $password)
@@ -77,7 +94,7 @@
 	  {
         while ($result = $query_result->fetch_assoc())
         {
-            if ($result["Approved_By_Admin"] == 2)
+            if ($result["Approved_By_Admin"] == 1)
             {
                 return true;
             }
@@ -89,4 +106,3 @@
         
 	  }
 	}
-?>
