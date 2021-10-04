@@ -32,11 +32,11 @@ if (
             //Generate a unique email verification code based off email.
             $verificationCode = md5($loginEmail);
             $insertStatement = "INSERT INTO $userTable 
-            VALUES ('$loginEmail', '$hashedPass',
+            VALUES ('$loginEmail', '$currentDateTime', '$hashedPass',
                     '$firstName', '$lastName',
                     '$organization', '$currentDateTime',
                       null, null, 0,
-                    '$verificationCode', 0,0,0)";
+                    '$verificationCode',0,0,0,0)";
             SendVerificationEmail($loginEmail, $loginPassword);
             // Insert into db
             $query_result = $conn->query($insertStatement)

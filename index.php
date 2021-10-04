@@ -17,8 +17,8 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
             require 'authenticate.php';
             if (CheckTwoFactor($userEmail, md5($userEmail . $lastLogin), $lastLogin)) {
                 if ($adminUser){
-                    echo '<br>Welcome, admin!<br>';
-                    echo '<br><a href="userqueue.php">Approve/Reject User Registration Requests</a><br><br>';
+                    echo '<center><br>Welcome, admin!<br>';
+                    echo '<br><a href="userqueue.php">Approve/Reject User Registration Requests</a><br><br></center>';
                 }
                 else {
                     echo 'Welcome! Everything is good to go and you have full access to the site.<br><br>';
@@ -48,11 +48,15 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
     <title>Fake News Analyzer Home Page</title>
 </head>
 
-<body>
+<body><br><center>
     <form action="" method="post" name="frmProfile" id="frmProfile">
+              <input type="search" id="searchText" name="search" placeholder="Search for an article" style="width: 400px";>
+            <button>Search</button>
+            <br><br>
         <a href="profile.php">Update Profile Information</a><br>
         <a href="logout.php">Logout</a>
     </form>
+    </center>
 </body>
 
 </html>
