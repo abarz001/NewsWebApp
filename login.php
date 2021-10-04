@@ -67,7 +67,7 @@ if (isset($_POST['email']) && isset($_POST['pass'])) {
             <tr>
                 <td width="150">Forgot password?</td>
                 <td>
-                    <a href="./resetpassword.php">
+                    <a href="./sendresetemail.php">
                         Click here to reset password.
                     </a>
                 </td>

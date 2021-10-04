@@ -51,8 +51,11 @@ function authenticate($email, $password)
             $_SESSION['approvedByAdmin'] = $result["Approved_By_Admin"];
         }
         $newTwoFactorCode = md5($email . $currentDateTime);
-        UpdateTwoFactorCode($email, $newTwoFactorCode);
-        Send2FAEmail($email, $newTwoFactorCode);
+        //Only send 2FA email if the account has email verified
+        if ($_SESSION['emailVerified']){
+            UpdateTwoFactorCode($email, $newTwoFactorCode);
+            Send2FAEmail($email, $newTwoFactorCode);
+        }
         return true;
     }
 }
@@ -197,7 +200,7 @@ function VerifyUser($email, $verificationCode){
 }
 
 function UpdateTwoFactorCode($email, $TwoFACode){
-if (!isset($email)) {
+if (!isset($email) || !isset($twoFACode)) {
         return false;
     }
     $server = "localhost";
@@ -294,8 +297,7 @@ function SetTwoFactorApproved($email, $verificationCode, $lastLoginTime){
 
 function Send2FAEmail($email, $twoFACode)
 {
-    if (!isset($email)) {
-        echo 'email not set';
+    if (!isset($email) || !isset($twoFACode)) {
         return false;
     }
     $to = $email;
@@ -305,6 +307,24 @@ function Send2FAEmail($email, $twoFACode)
     Use the link below to complete login:
     
     http://localhost/2FA.php?email=" . $email . "&authCode=" . $twoFACode;
+    $headers = "From: barzanjiaran@gmail.com";
+    if (mail($to, $subject, $message, $headers)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function SendPasswordResetEmail($email, $resetCode)
+{
+    if (!isset($email) || !isset($resetCode)) {
+        return false;
+    }
+    $to = $email;
+    $subject = "Password Reset Link";
+    $message = "Please use the link below to complete your password reset:
+    
+    http://localhost/resetpassword.php?email=" . $email . "&resetCode=" . $resetCode;
     $headers = "From: barzanjiaran@gmail.com";
     if (mail($to, $subject, $message, $headers)) {
         return true;

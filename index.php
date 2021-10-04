@@ -15,7 +15,7 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
         if (isset($_SESSION['emailVerified']) && $_SESSION['emailVerified']){
             if (isset($_SESSION['2FA_Approved']) && $_SESSION['2FA_Approved'])
             {
-                echo 'Welcome! Everything is good to go.';
+                echo 'Welcome! Everything is good to go and you have full access to the site.';
             }
             else {
                 header('Location: 2FA.php');

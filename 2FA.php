@@ -28,7 +28,7 @@ if (isset($_GET['email']) && isset($_GET['authCode'])) {
     <form action="" method="post" name="frmVerification" id="frmVerification">
         <table width="800" border="1" align="center" cellpadding="2" cellspacing="2">
             <tr>
-                <td width="150">2FA Authentication Code</td>
+                <td width="150">Two Factor Authentication Code</td>
                 <td><input name="authCode" type="text" id="authCode" value="<?php echo $authorizationCode ?>"></td>
             </tr>
             <tr>

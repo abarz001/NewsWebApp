@@ -9,6 +9,7 @@
     unset($_SESSION["adminUser"]);
     unset($_SESSION["emailVerified"]);
     unset($_SESSION["approvedByAdmin"]);
+    unset($_SESSION['2FA_Approved']);
     session_destroy();
     header("Location:login.php");
 ?>

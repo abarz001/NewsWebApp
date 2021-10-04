@@ -1,3 +1,1 @@
-<?php
-echo 'Under construction';
-?>
+Coming soon!
