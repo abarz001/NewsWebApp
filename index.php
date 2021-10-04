@@ -12,7 +12,14 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
     $approvedByAdmin = $_SESSION['approvedByAdmin'];
     echo 'Welcome ', $_SESSION['email'], '.<br><br>';
     if (isset($_SESSION['ApprovedByAdmin']) && $_SESSION['ApprovedByAdmin']) {
-        echo 'Your account has been approved by an admin so you have full access to the site!';
+        if (isset($_SESSION['emailVerified']) && $_SESSION['emailVerified']){
+            echo 'Your account has been approved by admin, and you have verified your email. Welcome!';
+        }
+        else {
+            echo 'Your account has been approved by an administrator, but you still need to confirm your email. <br>
+            Click the email you have been sent to confirm your account.';
+            exit;
+        }
     } else {
         echo 'Your account is currently pending approval by an admin. Please check back later to see if your account has been approved by an admin.';
         exit;
@@ -32,7 +39,7 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
 <body>
     <form action="" method="post" name="frmProfile" id="frmProfile">
         <a href="profile.php">Update User Information</a><br>
-       <a href="logout.php">Logout</a>
+        <a href="logout.php">Logout</a>
     </form>
 </body>
 

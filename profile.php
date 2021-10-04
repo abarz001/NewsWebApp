@@ -103,9 +103,9 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
             </tr>
             <tr>
                 <td width="150">Email Verified</td>
-                <td><?php if ($emailVerified == 0) {
+                <td><?php if ($emailVerified == false) {
                         echo 'No';
-                    } else if ($emailVerified == 1) {
+                    } else if ($emailVerified == true) {
                         echo 'Yes';
                     } else {
                         echo 'Error';
@@ -113,9 +113,9 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
             </tr>
             <tr>
                 <td width="150">Account Approved</td>
-                <td><?php if ($approvedByAdmin == 0) {
+                <td><?php if ($approvedByAdmin == false) {
                         echo 'No';
-                    } else if ($approvedByAdmin == 1) {
+                    } else if ($approvedByAdmin == true) {
                         echo 'Yes';
                     } else {
                         echo 'Error';

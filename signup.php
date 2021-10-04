@@ -29,16 +29,19 @@ if (
         if ($check_query_result->num_rows != 0) {
             $errorMessage = "That email is already taken. Please choose another email address.";
         } else {
+            //Generate a unique email verification code based off email.
+            $verificationCode = md5($loginEmail);
             $insertStatement = "INSERT INTO $userTable 
             VALUES ('$loginEmail', '$hashedPass',
                     '$firstName', '$lastName',
                     '$organization', '$currentDateTime',
-                    0,0,0)";
-
+                    '$verificationCode', 0,0,0)";
+            SendVerificationEmail($loginEmail, $loginPassword);
             // Insert into db
             $query_result = $conn->query($insertStatement)
                 or die("SQL Query ERROR. Contact an admin. There was an error creating a user." . $insertStatement . $conn->connect_error);
 
+            
             // Go to the login page
             header('Location: index.php');
             exit;

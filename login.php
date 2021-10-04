@@ -17,6 +17,11 @@ if (isset($_POST['email']) && isset($_POST['pass'])) {
         // set the session	
         $_SESSION['userLoggedIn'] = true;
         $_SESSION['email'] = $email;
+        if (CheckIfConfirmedEmail($email, $pass)) {
+            $_SESSION['emailVerified'] = true;
+        } else {
+            $_SESSION['emailVerified'] = false;
+        }
         if (CheckIfUserIsApproved($email, $pass)) {
             $_SESSION['ApprovedByAdmin'] = true;
         } else {
