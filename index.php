@@ -10,21 +10,21 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
     $adminUser = $_SESSION['adminUser'];
     $emailVerified = $_SESSION['emailVerified'];
     $approvedByAdmin = $_SESSION['approvedByAdmin'];
-    echo 'Logged in as: ', $_SESSION['email'], '.<br><br>';
+    //For Debugging 
+    //echo 'Logged in as: ' . '<br><br>' . $userEmail . '.<br>' . md5($userEmail . $lastLogin) . '<br>' . $lastLogin;
     if (isset($_SESSION['ApprovedByAdmin']) && $_SESSION['ApprovedByAdmin']) {
-        if (isset($_SESSION['emailVerified']) && $_SESSION['emailVerified']){
-            if (isset($_SESSION['2FA_Approved']) && $_SESSION['2FA_Approved'])
-            {
+        if (isset($_SESSION['emailVerified']) && $_SESSION['emailVerified']) {
+            require 'authenticate.php';
+            if (CheckTwoFactor($userEmail, md5($userEmail . $lastLogin), $lastLogin)) {
                 if ($adminUser){
-                    echo 'Welcome, admin!<br>';
+                    echo '<br>Welcome, admin!<br>';
                     echo '<br><a href="userqueue.php">Approve/Reject User Registration Requests</a><br><br>';
                 }
                 else {
                     echo 'Welcome! Everything is good to go and you have full access to the site.<br><br>';
                 }
-            }
-            else {
-                header('Location: 2FA.php');
+            } else {
+               header('Location: 2FA.php');
             }
         }
         else {

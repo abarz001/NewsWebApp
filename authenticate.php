@@ -52,10 +52,9 @@ function authenticate($email, $password)
         }
         $newTwoFactorCode = md5($email . $currentDateTime);
         //Only send 2FA email if the account has email verified
-        if ($_SESSION['emailVerified']){
-            UpdateTwoFactorCode($email, $newTwoFactorCode);
-            Send2FAEmail($email, $newTwoFactorCode);
-        }
+        UpdateTwoFactorCode($email, $newTwoFactorCode);
+        Send2FAEmail($email, $newTwoFactorCode);
+        
         return true;
     }
 }
@@ -200,7 +199,7 @@ function VerifyUser($email, $verificationCode){
 }
 
 function UpdateTwoFactorCode($email, $TwoFACode){
-if (!isset($email) || !isset($twoFACode)) {
+if (!isset($email) || !isset($TwoFACode)) {
         return false;
     }
     $server = "localhost";
@@ -286,12 +285,16 @@ function SetTwoFactorApproved($email, $verificationCode, $lastLoginTime){
     //Run the SQL statement, return false if error.
     $query_result = $conn->query($sqlStatement);
     if (!$query_result) {
-        echo $sqlStatement;
-        echo "<br>Query error.";
         return false;
     }
-    else{
+    else {
+        //Checking to make sure one row got updated
+        if ($conn->affected_rows == 1){
         return true;
+        }
+        else {
+            return false;
+        }
     }
 }
 
