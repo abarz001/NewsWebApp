@@ -10,12 +10,18 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
     $adminUser = $_SESSION['adminUser'];
     $emailVerified = $_SESSION['emailVerified'];
     $approvedByAdmin = $_SESSION['approvedByAdmin'];
-    echo 'Welcome ', $_SESSION['email'], '.<br><br>';
+    echo 'Logged in as: ', $_SESSION['email'], '.<br><br>';
     if (isset($_SESSION['ApprovedByAdmin']) && $_SESSION['ApprovedByAdmin']) {
         if (isset($_SESSION['emailVerified']) && $_SESSION['emailVerified']){
             if (isset($_SESSION['2FA_Approved']) && $_SESSION['2FA_Approved'])
             {
-                echo 'Welcome! Everything is good to go and you have full access to the site.';
+                if ($adminUser){
+                    echo 'Welcome, admin!<br>';
+                    echo '<br><a href="userqueue.php">Approve/Reject User Registration Requests</a><br><br>';
+                }
+                else {
+                    echo 'Welcome! Everything is good to go and you have full access to the site.<br><br>';
+                }
             }
             else {
                 header('Location: 2FA.php');
@@ -44,7 +50,7 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
 
 <body>
     <form action="" method="post" name="frmProfile" id="frmProfile">
-        <a href="profile.php">Update User Information</a><br>
+        <a href="profile.php">Update Profile Information</a><br>
         <a href="logout.php">Logout</a>
     </form>
 </body>
