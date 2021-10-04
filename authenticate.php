@@ -315,20 +315,38 @@ function Send2FAEmail($email, $twoFACode)
     }
 }
 
-function SendPasswordResetEmail($email, $resetCode)
+function SetResetCodeAndSendEmail($email, $resetCode)
 {
-    if (!isset($email) || !isset($resetCode)) {
+    $server = "localhost";
+    $sqlUser = "myadmin";
+    $sqlPass = "myadminpass";
+    $db = "PROJECT";
+    $conn = new mysqli($server, $sqlUser, $sqlPass, $db);
+    $userTable = "USERS";
+    $sqlStatement = "UPDATE $userTable
+                     SET Reset_Code = '$resetCode'
+                     WHERE Email = '$email'";
+
+    //Run the SQL statement, return false if error.
+    $query_result = $conn->query($sqlStatement);
+    if (!$query_result) {
+        echo $sqlStatement;
+        echo "<br>Query error.";
         return false;
-    }
-    $to = $email;
-    $subject = "Password Reset Link";
-    $message = "Please use the link below to complete your password reset:
+    } else {
+        if (!isset($email) || !isset($resetCode)) {
+            return false;
+        }
+        $to = $email;
+        $subject = "Password Reset Link";
+        $message = "Please use the link below to complete your password reset:
     
     http://localhost/resetpassword.php?email=" . $email . "&resetCode=" . $resetCode;
-    $headers = "From: barzanjiaran@gmail.com";
-    if (mail($to, $subject, $message, $headers)) {
-        return true;
-    } else {
-        return false;
+        $headers = "From: barzanjiaran@gmail.com";
+        if (mail($to, $subject, $message, $headers)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

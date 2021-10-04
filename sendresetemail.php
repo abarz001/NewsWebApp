@@ -15,8 +15,8 @@
     $resultMessage = null;
     $email = $_POST['email'];
     if (isset($_POST['btnSendResetEmail'])) {
-        $resetCode = md5($email);
-        if (SendPasswordResetEmail($email, $resetCode)){
+        $resetCode = md5($email . rand(0, 10000));
+        if (SetResetCodeAndSendEmail($email, $resetCode)){
             $resultMessage = 'A password reset link has been sent to your inbox.';
         }
         else {
