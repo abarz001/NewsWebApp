@@ -50,6 +50,9 @@ function authenticate($email, $password)
             $_SESSION['emailVerified'] = $result["Email_Verified"];
             $_SESSION['approvedByAdmin'] = $result["Approved_By_Admin"];
         }
+        $newTwoFactorCode = md5($email . $currentDateTime);
+        UpdateTwoFactorCode($email, $newTwoFactorCode);
+        Send2FAEmail($email, $newTwoFactorCode);
         return true;
     }
 }
@@ -163,7 +166,6 @@ function VerifyUser($email, $verificationCode){
     $sqlPass = "myadminpass";
     $db = "PROJECT";
     $conn = new mysqli($server, $sqlUser, $sqlPass, $db);
-    //Encrypt the cleartext password
     $userTable = "USERS";
     $sqlStatement = "SELECT * FROM $userTable
                        WHERE Email = '$email'
@@ -191,5 +193,122 @@ function VerifyUser($email, $verificationCode){
     }
     else {
         return false; //We couldn't find that email/verification code.
+    }
+}
+
+function UpdateTwoFactorCode($email, $TwoFACode){
+if (!isset($email)) {
+        return false;
+    }
+    $server = "localhost";
+    $sqlUser = "myadmin";
+    $sqlPass = "myadminpass";
+    $db = "PROJECT";
+    $conn = new mysqli($server, $sqlUser, $sqlPass, $db);
+    $userTable = "USERS";
+    $sqlStatement = "UPDATE $userTable
+                     SET Two_Factor_Code = '$TwoFACode', 
+                     Two_Factor_Approved = false
+                     WHERE Email = '$email'";
+
+    //Run the SQL statement, return false if error.
+    $query_result = $conn->query($sqlStatement);
+    if (!$query_result) {
+        echo $sqlStatement;
+        echo "<br>Query error.";
+    }
+
+    if ($query_result->num_rows > 0) {
+                return true; //we successfully updated the two factor code
+            }
+            else {
+                return false; //We didn't update the two factor code
+            }
+}
+
+function CheckTwoFactor($email, $verificationCode, $lastLoginTime){
+    if (!isset($email) || !isset($verificationCode)) {
+        return false;
+    }
+    $server = "localhost";
+    $sqlUser = "myadmin";
+    $sqlPass = "myadminpass";
+    $db = "PROJECT";
+    $conn = new mysqli($server, $sqlUser, $sqlPass, $db);
+    $userTable = "USERS";
+    $sqlStatement = "SELECT * FROM $userTable
+                     WHERE Email = '$email'
+                     AND Two_Factor_Code = '$verificationCode'
+                     AND Last_Login = '$lastLoginTime'";
+
+    //Run the SQL statement, return false if error.
+    $query_result = $conn->query($sqlStatement);
+    if (!$query_result) {
+        echo $sqlStatement;
+        echo "<br>Query error.";
+        return false;
+    }
+    else{
+    if ($query_result->num_rows > 0) {
+        while ($result = $query_result->fetch_assoc()) {
+            if ($result["Two_Factor_Approved"] == 1) {
+                return true;
+            } else {
+                return false;
+            };
+        }
+     }
+     else {
+         return false;
+     }
+    }
+}
+
+function SetTwoFactorApproved($email, $verificationCode, $lastLoginTime){
+    if (!isset($email) || !isset($verificationCode)) {
+        return false;
+    }
+    $server = "localhost";
+    $sqlUser = "myadmin";
+    $sqlPass = "myadminpass";
+    $db = "PROJECT";
+    $conn = new mysqli($server, $sqlUser, $sqlPass, $db);
+    $userTable = "USERS";
+    $sqlStatement = "UPDATE $userTable
+                     SET Two_Factor_Approved = true
+                     WHERE Email = '$email'
+                     AND Two_Factor_Code = '$verificationCode'
+                     AND Last_Login = '$lastLoginTime'";
+
+    //Run the SQL statement, return false if error.
+    $query_result = $conn->query($sqlStatement);
+    if (!$query_result) {
+        echo $sqlStatement;
+        echo "<br>Query error.";
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+function Send2FAEmail($email, $twoFACode)
+{
+    if (!isset($email)) {
+        echo 'email not set';
+        return false;
+    }
+    $to = $email;
+    $subject = "Two Factor Authentication Code";
+    $message = "Your 2FA Code is: " . $twoFACode . "
+
+    Use the link below to complete login:
+    
+    http://localhost/2FA.php?email=" . $email . "&authCode=" . $twoFACode;
+    $headers = "From: barzanjiaran@gmail.com";
+    if (mail($to, $subject, $message, $headers)) {
+        return true;
+    } else {
+        return false;
     }
 }

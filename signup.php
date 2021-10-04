@@ -31,10 +31,12 @@ if (
         } else {
             //Generate a unique email verification code based off email.
             $verificationCode = md5($loginEmail);
+            $twoFactorCode = $newTwoFactorCode = md5($email . $lastLoginTime);
             $insertStatement = "INSERT INTO $userTable 
             VALUES ('$loginEmail', '$hashedPass',
                     '$firstName', '$lastName',
                     '$organization', '$currentDateTime',
+                     '$twoFactorCode', 0,
                     '$verificationCode', 0,0,0)";
             SendVerificationEmail($loginEmail, $loginPassword);
             // Insert into db

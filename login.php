@@ -27,6 +27,12 @@ if (isset($_POST['email']) && isset($_POST['pass'])) {
         } else {
             $_SESSION['ApprovedByAdmin'] = false;
         }
+        if (CheckTwoFactor($email, md5($email . $_SESSION['lastLogin']), $_SESSION['lastLogin'])){
+            $_SESSION['2FA_Approved'] = true;
+        }
+        else {
+            $_SESSION['2FA_Approved'] = false;
+        }
         // after login we move to the home page
         header('Location: index.php');
         exit;

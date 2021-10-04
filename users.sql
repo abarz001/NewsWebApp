@@ -5,8 +5,11 @@ CREATE TABLE USERS (
 	Name_Last VARCHAR(128),
 	Organization VARCHAR(128),
 	Last_Login DATETIME,
-	Admin_User BIT NOT NULL,
-	Email_Verified BIT NOT NULL,
-	Approved_By_Admin BIT NOT NULL,
+	Two_Factor_Code CHAR(32),
+	Two_Factor_Approved BIT NOT NULL DEFAULT 0,
+	Verification_Code CHAR(32) NOT NULL,
+	Admin_User BIT NOT NULL DEFAULT 0,
+	Email_Verified BIT NOT NULL DEFAULT 0,
+	Approved_By_Admin BIT NOT NULL DEFAULT 0,
 	CONSTRAINT PK_USERS PRIMARY KEY (Email)
 );

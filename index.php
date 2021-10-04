@@ -13,7 +13,13 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
     echo 'Welcome ', $_SESSION['email'], '.<br><br>';
     if (isset($_SESSION['ApprovedByAdmin']) && $_SESSION['ApprovedByAdmin']) {
         if (isset($_SESSION['emailVerified']) && $_SESSION['emailVerified']){
-            echo 'Your account has been approved by admin, and you have verified your email. Welcome!';
+            if (isset($_SESSION['2FA_Approved']) && $_SESSION['2FA_Approved'])
+            {
+                echo 'Welcome! Everything is good to go.';
+            }
+            else {
+                header('Location: 2FA.php');
+            }
         }
         else {
             echo 'Your account has been approved by an administrator, but you still need to confirm your email. <br>
