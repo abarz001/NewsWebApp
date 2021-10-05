@@ -41,42 +41,52 @@ if (isset($_POST['email']) && isset($_POST['pass'])) {
 
 <head>
     <title>User Login</title>
+        <style>
+        .loginform {
+            border-width: 5px;
+            border-style: groove;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-40%, -40%);
+            transform: translate(-50%, -65%);
+        }
+        .buttons{
+            width:150px;
+            height:25px;
+        }
+    </style>
 </head>
 
 <body>
-    <Strong> <?php echo $errorMessage ?> </Strong>
+    <div class="loginform">
+    <center><?php echo $errorMessage ?><br></center>
     <form action="" method="post" name="frmLogin" id="frmLogin">
-        <table width="400" border="1" align="center" cellpadding="2" cellspacing="2">
+        <table width="400" border="0" align="center" cellpadding="2" cellspacing="2">
             <tr>
-                <td width="150">Email Address</td>
+                <td width="230">Email Address</td>
                 <td><input name="email" type="email" id="email"></td>
             </tr>
             <tr>
-                <td width="150">Password</td>
+                <td width="230">Password</td>
                 <td><input name="pass" type="password" id="pass"></td>
             </tr>
             <tr>
-                <td width="150">&nbsp;</td>
-                <td><input name="btnLogin" type="submit" id="btnLogin" value="Login"></td>
+                <td width="150"></td>
+                <td><input name="btnLogin" type="submit" id="btnLogin" value="Login" class="buttons"></td>
             </tr>
             <tr>
                 <td width="150">Forgot password?</td>
-                <td>
-                    <a href="./sendresetemail.php">
-                        Click here to reset password.
-                    </a>
-                </td>
+                <td><a href="./sendresetemail.php"><input name="resetpass" type="button" value="Reset Password" class="buttons"></a></td>
             </tr>
             <tr>
                 <td width="150">No account?</td>
-                <td>
-                    <a href="./signup.php">
-                        Click here to sign up.
-                    </a>
-                </td>
+                <td><a href="./signup.php"><input name="signup" type="button" value="Sign Up" class="buttons"></a></td>
             </tr>
         </table>
     </form>
+    </div>
 </body>
 
 </html>

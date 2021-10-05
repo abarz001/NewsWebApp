@@ -24,7 +24,7 @@ if (isset($_GET['email']) || isset($_SESSION['email'])) {
         if (SetTwoFactorApproved($email, $authorizationCode, $lastLogin)) {
             header('Location: index.php');
         } else {
-            echo '<br>Error confirming 2FA code.<br>Please click the link in your email or re-login to generate new code.';
+            echo '<div class="centertext"><br>Error confirming 2FA code.<br>Please click the link in your email or re-login to generate new code.</div>';
         }
     }
 }
@@ -34,12 +34,29 @@ if (isset($_GET['email']) || isset($_SESSION['email'])) {
 
 <head>
     <title>2FA Authentication - Continue to login</title>
+        <style>
+        .twofa {
+            border-width: 5px;
+            border-style: groove;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-40%, -40%);
+            transform: translate(-50%, -65%);
+            text-align: center;
+        }
+                .centertext {
+            text-align: center;
+        }
+    </style>
 </head>
 
 
 <body>
+    <div class="twofa">
     <form action="" method="post" name="frmVerification" id="frmVerification">
-        <table width="800" border="1" align="center" cellpadding="2" cellspacing="2">
+        <table width="400" border="0" align="center" cellpadding="5" cellspacing="5">
             <tr>
                 <td width="150">Email</td>
                 <td><input name="email" type="email" id="email" required value="<?php echo $email ?>"></td>
@@ -49,13 +66,14 @@ if (isset($_GET['email']) || isset($_SESSION['email'])) {
                 <td><input name="auCode" type="text" id="auCode" required value="<?php echo $authorizationCode ?>"></td>
             </tr>
             <tr>
-                <td width="400" td colspan="2">
-                    <center><input name="btnContinue" type="submit" id="btnContinue" value="Complete Login">
-                    </center>
+                <td colspan="2">
+                    <center><br><input name="btnContinue" type="submit" id="btnContinue" value="Complete Login">
+                    </center><br>
                 </td>
             </tr>
         </table>
     </form>
+    </div>
 </body>
 
 </html>

@@ -44,6 +44,7 @@ function authenticate($email, $password)
 
             $_SESSION['firstName'] = $result["Name_First"];
             $_SESSION['lastName'] = $result["Name_Last"];
+            $_SESSION['regDate'] = $result["Registration_Date"];
             $_SESSION['organization'] = $result["Organization"];
             $_SESSION['lastLogin'] = $currentDateTime;
             $_SESSION['adminUser'] = $result["Admin_User"];

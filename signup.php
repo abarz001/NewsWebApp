@@ -58,13 +58,26 @@ if (
 <head>
     <title>Sign-in</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+            <style>
+        .centerforms {
+            border-width: 5px;
+            border-style: groove;
+            margin: 0;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            -ms-transform: translate(-40%, -40%);
+            transform: translate(-50%, -65%);
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
-    <Strong> <?php echo $errorMessage ?> </Strong>
-
+<div class="centerforms">
+    <?php echo $errorMessage ?><br><br>
     <form action="" method="post" name="frmLogin" id="frmLogin">
-        <table width="300" border="1" align="center" cellpadding="2" cellspacing="2">
+        <table width="400" border="0" align="center" cellpadding="2" cellspacing="2">
             <tr>
                 <td width="150">Enter valid email address*</td>
                 <td><input name="email" type="email" id="email"></td>
@@ -100,6 +113,7 @@ if (
             </tr>
         </table>
     </form>
+    </div>
 </body>
 
 </html>

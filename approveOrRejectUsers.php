@@ -1,7 +1,8 @@
 <?php
+session_start();
 function approveOrReject($approveOrReject, $email)
 {
-    if (!isset($approveOrReject) || !isset($email)) {
+    if (!isset($approveOrReject) || !isset($email) || !isset($_SESSION['adminUser'])) {
         echo 'There has been an error';
         return false;
     } else {

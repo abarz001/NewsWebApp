@@ -18,7 +18,8 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
             if (CheckTwoFactor($userEmail, md5($userEmail . $lastLogin), $lastLogin)) {
                 if ($adminUser){
                     echo "<center><br><br><br><br>Welcome, $firstName, you are an admin!<br>";
-                    echo '<br><a href="userqueue.php">Approve/Reject User Registration Requests</a><br><br></center>';
+                    echo '<br><a href="userqueue.php"><input name="userqueue" type="button" value="Approve/Reject User Registration Requests" class="buttons">
+                    </button></a><br><br></center>';
                 }
                 else {
                     echo "<center><br><br><br><br>Welcome $firstName! Everything is good to go and you have full access to the site.<br><br></center>";
@@ -46,6 +47,11 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
 
 <head>
     <title>Fake News Analyzer Home Page</title>
+    <style>
+            .buttons{
+            height:30px;
+        }
+    </style>
 </head>
 
 <body><br><center>
@@ -53,8 +59,8 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
               <input type="search" id="searchText" name="search" placeholder="Search for an article" style="width: 400px";>
             <button>Search</button>
             <br><br>
-        <a href="profile.php">Update Profile Information</a><br>
-        <a href="logout.php">Logout</a>
+        <a href="profile.php"><input name="userprofile" type="button" value="View/Update Profile Information" class="buttons"></a><br><br>
+        <a href="logout.php"><input name="logoutbtn" type="button" value="Logout" class="buttons"></a>
     </form>
     </center>
 </body>
