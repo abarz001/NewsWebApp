@@ -8,6 +8,9 @@ if (isset($_GET['email']) && isset($_GET['verificationCode'])) {
         require 'authenticate.php';
         if (VerifyUser($email, $verificationCode)){
             header('Location: login.php');
+        }
+        else {
+            echo 'failed to verify account';
         };
     }
 }

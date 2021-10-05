@@ -17,11 +17,11 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
             require 'authenticate.php';
             if (CheckTwoFactor($userEmail, md5($userEmail . $lastLogin), $lastLogin)) {
                 if ($adminUser){
-                    echo '<center><br>Welcome, admin!<br>';
+                    echo "<center><br><br><br><br>Welcome, $firstName, you are an admin!<br>";
                     echo '<br><a href="userqueue.php">Approve/Reject User Registration Requests</a><br><br></center>';
                 }
                 else {
-                    echo 'Welcome! Everything is good to go and you have full access to the site.<br><br>';
+                    echo "<center><br><br><br><br>Welcome $firstName! Everything is good to go and you have full access to the site.<br><br></center>";
                 }
             } else {
                header('Location: 2FA.php');

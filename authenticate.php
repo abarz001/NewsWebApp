@@ -192,8 +192,10 @@ function VerifyUser($email, $verificationCode){
             else {
                 return false; //We found the user's email, but the verification code doesn't match
             }
+            
     }
     else {
+        echo $sqlStatement . '<br>';
         return false; //We couldn't find that email/verification code.
     }
 }
@@ -220,7 +222,7 @@ if (!isset($email) || !isset($TwoFACode)) {
         echo "<br>Query error.";
     }
 
-    if ($query_result->num_rows > 0) {
+    if ($conn->affected_rows == 1) {
                 return true; //we successfully updated the two factor code
             }
             else {
