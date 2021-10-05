@@ -56,7 +56,7 @@ if (
 <html>
 
 <head>
-    <title>Sign-in</title>
+    <title>Registration</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
             <style>
         .centerforms {
