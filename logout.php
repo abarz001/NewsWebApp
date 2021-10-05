@@ -1,0 +1,14 @@
+<?php
+    session_start();
+    unset($_SESSION["userLoggedIn"]);
+    unset($_SESSION["email"]);
+    unset($_SESSION["firstName"]);
+    unset($_SESSION["lastName"]);
+    unset($_SESSION["organization"]);
+    unset($_SESSION["lastLogin"]);
+    unset($_SESSION["adminUser"]);
+    unset($_SESSION["emailVerified"]);
+    unset($_SESSION["approvedByAdmin"]);
+    session_destroy();
+    header("Location:login.php");
+?>
