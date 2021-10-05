@@ -177,17 +177,18 @@ function VerifyUser($email, $verificationCode){
     //Run the SQL statement, return false if error.
     $query_result = $conn->query($sqlStatement);
     if (!$query_result) {
-        echo $sqlStatement;
-        echo "<br>Query error.";
-    }
+        echo "<br>Query error.<br>";
+	return false;  
+  }
 
     $numRowsReturned = $query_result->num_rows;
     if ($numRowsReturned > 0) {
             $updateStatement = "UPDATE $userTable 
             SET Email_Verified = true
-            WHERE Email = '$email'";
+            WHERE Email = '$email'
+	    AND Verification_Code = '$verificationCode'";
             $update_result = $conn->query($updateStatement);
-            if ($update_result){
+            if ($conn->affected_rows == 1){
                 return true; //we successfully updated the Email_Verified attribute
             }
             else {
@@ -196,7 +197,6 @@ function VerifyUser($email, $verificationCode){
             
     }
     else {
-        echo $sqlStatement . '<br>';
         return false; //We couldn't find that email/verification code.
     }
 }

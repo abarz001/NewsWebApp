@@ -12,8 +12,8 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
     $approvedByAdmin = $_SESSION['approvedByAdmin'];
     //For Debugging 
     //echo 'Logged in as: ' . '<br><br>' . $userEmail . '.<br>' . md5($userEmail . $lastLogin) . '<br>' . $lastLogin;
-    if (isset($_SESSION['ApprovedByAdmin']) && $_SESSION['ApprovedByAdmin']) {
-        if (isset($_SESSION['emailVerified']) && $_SESSION['emailVerified']) {
+    if (isset($_SESSION['emailVerified']) && $_SESSION['emailVerified']) {
+        if (isset($_SESSION['ApprovedByAdmin']) && $_SESSION['ApprovedByAdmin']) {
             require 'authenticate.php';
             if (CheckTwoFactor($userEmail, md5($userEmail . $lastLogin), $lastLogin)) {
                 if ($adminUser){
@@ -29,13 +29,14 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
             }
         }
         else {
-            echo 'Your account has been approved by an administrator, but you still need to confirm your email. <br>
-            Click the email you have been sent to confirm your account.';
-            exit;
+		echo 'Your account is currently pending approval by an admin. Please check back later to see if your account has been approved by an admin.';
+        	echo '<br><br><a href="logout.php"><input name="logoutbtn" type="button" value="Logout" class="buttons"></a>';
+        	exit;
         }
     } else {
-        echo 'Your account is currently pending approval by an admin. Please check back later to see if your account has been approved by an admin.';
-        exit;
+	echo 'You need to confirm your email before logging in. Please check your email for the verification code/link.';
+	echo '<br><br><a href="logout.php"><input name="logoutbtn" type="button" value="Logout" class="buttons"></a>';        
+	exit;
     }
 } else {
     header('Location: login.php');
