@@ -1,4 +1,6 @@
 <?php
+function insertKeywords()
+{
 	//Get all the files in the keywords directory
 	$keywordFiles = array();
 	$directory = opendir('./files/keywords/');
@@ -32,7 +34,7 @@
     if (!$query_result) {
         echo $sqlStatement;
         echo "<br>Sorry, the keyword insert failed.";
-		
+		return false;
     }
 	$keywordLocalCount++;
 		}
@@ -40,7 +42,8 @@
 		$counter++;
 		echo "<br><br>---------------------------------------------------------------------------------------------------------";
 	}
-	
+	return true;
+}
 
     
 	
