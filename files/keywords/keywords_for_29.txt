@@ -1,0 +1,8 @@
+newsweek
+newsweeks
+flag
+flags
+airlines
+airline
+pilots
+southwest

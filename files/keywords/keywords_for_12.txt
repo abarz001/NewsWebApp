@@ -1,0 +1,8 @@
+box
+boxes
+amazon
+paper bag
+bags
+package
+packages
+packaging
