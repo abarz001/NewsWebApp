@@ -78,11 +78,23 @@ if (isset($_GET['article'])){
 			echo "<br><br>";
 			$json_file = file_get_contents($json_url);
 			$data = json_decode($json_file,true);
-			for ($i = 0; $i < 9; $i++){				
-			echo "Title #$i: " . $data['data'][$i]['title'];
-			echo "<br>";
+			$paperCount = 1;
+			if ($data['total'] > 0){
+			for ($i = 0; $i < 10; $i++){	
+			echo "- Refute Paper #$paperCount: " . $data['data'][$i]['title'];
+			echo "<br><button class=\"btn btn-primary\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#abstract$paperCount\" aria-expanded=\"false\" aria-controls=\"abstract$paperCount\">
+			Show abstract
+			</button>
+			<br><div class=\"collapse\" id=\"abstract$paperCount\">" . $data['data'][$i]['abstract'] . "</div>";
+			$paperCount++;
+			echo "<br><br>";
 			}
 			echo "<br><br>----------------------------------------------<br>";
+			}
+			else {
+				echo 'No refute papers found for this keyword.';
+				echo "<br><br>----------------------------------------------<br>";
+			}
 			}
 			echo "</p></div>
         </div>
