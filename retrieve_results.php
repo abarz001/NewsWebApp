@@ -48,10 +48,10 @@ if (isset($_GET['article'])){
 <script src=\"./js/load_tabs.js\"></script>";
 			echo "<body>
 				 <div class=\"splitpanel\"><form action=\"\" method=\"post\" name=\"frmProfile\" id=\"frmProfile\">
-							<table width=\"1500\" border=\"1\" align=\"center\" cellpadding=\"3\" cellspacing=\"3\">
+							<table class=\"paneltable\">
 							<th>";
 							echo "<div class=\"overflow-auto\">";
-							echo grabOriginalArticleBody($_GET['article']);
+							echo '<pre>' . grabOriginalArticleBody($_GET['article']) . '<pre>';
 							echo "</div></th>
 							<th>
 							
@@ -74,7 +74,8 @@ if (isset($_GET['article'])){
 			require 'insert_semantic_search.php';
 			$resultArray = grabKeywords($_GET['article']);
 			foreach($resultArray as $keywords){
-			echo $json_url = getSemanticURL($_GET['article'], $keywords);
+			$json_url = getSemanticURL($_GET['article'], $keywords);
+			echo "Keyword: $keywords";
 			echo "<br><br>";
 			$json_file = file_get_contents($json_url);
 			$data = json_decode($json_file,true);
@@ -82,10 +83,17 @@ if (isset($_GET['article'])){
 			if ($data['total'] > 0){
 			for ($i = 0; $i < 10; $i++){	
 			echo "- Refute Paper #$paperCount: " . $data['data'][$i]['title'];
-			echo "<br><button class=\"btn btn-primary\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#abstract$paperCount\" aria-expanded=\"false\" aria-controls=\"abstract$paperCount\">
-			Show abstract
+			echo "<br><button class=\"btn btn-primary\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#details$paperCount\" aria-expanded=\"false\" aria-controls=\"details$paperCount\">
+			Show/hide details
 			</button>
-			<br><div class=\"collapse\" id=\"abstract$paperCount\">" . $data['data'][$i]['abstract'] . "</div>";
+			<br><div class=\"collapse\" id=\"details$paperCount\">";
+			echo "<br>Authors: ";
+			foreach($data['data'][$i]['authors'] as $author){
+				echo $author['name'] . "; ";
+			}
+			echo "<br><br>Year Published: " . $data['data'][$i]['year'];
+			echo "<br><br>Citation Count: " . $data['data'][$i]['citationCount'];
+			echo "<br><br>Abstract: " . $data['data'][$i]['abstract'] . "</div>";
 			$paperCount++;
 			echo "<br><br>";
 			}
@@ -117,12 +125,16 @@ if (isset($_GET['article'])){
 
 <style>
 .overflow-auto{
-	max-height: 400px;
-	max-width: 800px;
+	max-height: 800px;
+	max-width: 700px;
 }
 .rightPanel{
-	max-height: 500px;
-	max-width: 600px;
+	max-height: 800px;
+	max-width: 700px;
+}
+.paneltable{
+	 border-style: dotted;
+	 height: 905px;
 }
 
 </style>
