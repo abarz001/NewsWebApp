@@ -1,6 +1,6 @@
 <?php
    require_once 'simple_html_dom.php';
-   
+   require 'insert_index.php';
    $snopesArray = explode("\r\n", $_POST['snopesList']);
    $count = 0;
    $fileCount = 1;
@@ -38,7 +38,6 @@
                 or die("SQL Query ERROR. There was an error inserting into the articles database:" . $insertStatement . $conn->connect_error);
 				
 	//Call elasticsearch indexing
-	require 'insert_index.php';
 	InsertIndex($fileCount, $title, $body);
 	$count++;
 	$fileCount++;

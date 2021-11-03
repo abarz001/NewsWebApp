@@ -23,7 +23,7 @@ if ($results['hits']['total'] > 0){
 echo 'Total number of results: ' . count($results) . '<br><br>';
 foreach($results as $r){
     echo '<br>';
-	echo "Article #"; //debugging
+	echo "Article #";
 	print_r($r['_id']);
 	echo ": <a href=?search=$searchTerm&article=";
 	print_r($r['_id']);
@@ -50,8 +50,8 @@ if (isset($_GET['article'])){
 				 <div class=\"splitpanel\"><form action=\"\" method=\"post\" name=\"frmProfile\" id=\"frmProfile\">
 							<table class=\"paneltable\">
 							<th>";
-							echo "<div class=\"overflow-auto\">";
-							echo '<pre>' . grabOriginalArticleBody($_GET['article']) . '<pre>';
+							echo "<div class=\"overflow-auto\" style=\"white-space: pre-wrap;\">";
+							echo grabOriginalArticleBody($_GET['article']);
 							echo "</div></th>
 							<th>
 							
@@ -107,17 +107,22 @@ if (isset($_GET['article'])){
 			echo "</p></div>
         </div>
         <div class=\"tab-pane fade\" id=\"tab2\">
-            <p>Tab 2 content</p>
+            <p><div class=\"overflow-auto\" style=\"white-space: pre-wrap;\">";
+			
+		}
+			echo grabSnopesTitle($_GET['article']);
+			echo grabSnopesBody($_GET['article']);
+			echo "</p></div>
         </div>
         <div class=\"tab-pane fade\" id=\"tab3\">
-            <p>Tab 3 content</p>
+            <p>Coming soon</p>
         </div>
     </div>
 </div>
 							</th>
 					</table></form></div>
 					</body>";
-		}
+		
 }
 
 
@@ -129,12 +134,11 @@ if (isset($_GET['article'])){
 	max-width: 700px;
 }
 .rightPanel{
-	max-height: 800px;
+	max-height: 850px;
 	max-width: 700px;
 }
 .paneltable{
 	 border-style: dotted;
-	 height: 905px;
+	 height: 850px;
 }
-
 </style>
