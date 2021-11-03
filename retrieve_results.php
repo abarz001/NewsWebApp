@@ -69,7 +69,13 @@ if (isset($_GET['article'])){
     </ul>
     <div class=\"tab-content\">
         <div class=\"tab-pane fade show active\" id=\"tab1\">
-            <p>Tab 1 content</p>
+            <p>";
+			require 'insert_semantic_search.php';
+			$resultArray = grabKeywords($_GET['article']);
+			foreach($resultArray as $keywords){
+			echo getSemanticURL($_GET['article'], $keywords) . '<br><br>';
+			}
+			echo "</p>
         </div>
         <div class=\"tab-pane fade\" id=\"tab2\">
             <p>Tab 2 content</p>
