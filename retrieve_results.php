@@ -1,6 +1,6 @@
 <?php
 require 'vendor/autoload.php';
-$searchTerm = $_POST['search'];
+$searchTerm = $_GET['search'];
 $client = Elasticsearch\ClientBuilder::create()->build();
 
 $params = [
@@ -20,11 +20,20 @@ if ($results['hits']['total'] > 0){
 	$results = $results['hits']['hits'];
 }
 
-echo 'Total number of hits: ' . count($results) . '<br><br>';
+echo 'Total number of results: ' . count($results) . '<br><br>';
 foreach($results as $r){
 	echo '<pre>';
+	echo "Article #"; //debugging
+	print_r($r['_id']);
+	echo ': <a href=#';
+	print_r($r['_id']);
+	echo  '">';
 	print_r($r['_source']['title']);
+	echo '</a>';
+	echo ': ';	
+	
 	echo '<pre>';
 }
 
 ?>
+
