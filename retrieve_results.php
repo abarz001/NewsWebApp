@@ -25,7 +25,7 @@ foreach($results as $r){
     echo '<br>';
 	echo "Article #"; //debugging
 	print_r($r['_id']);
-	echo ": <a href=./searchresults.php?search=$searchTerm&article=";
+	echo ": <a href=?search=$searchTerm&article=";
 	print_r($r['_id']);
 	echo  '>';
 	print_r($r['_source']['title']);
@@ -35,8 +35,12 @@ foreach($results as $r){
 echo '<br><br>';
 
 if (isset($_GET['article'])){
-	echo 'You selected article number ' . $_GET['article'];
 	require 'grab_original_articles.php';
+	echo 'You selected article number ' . $_GET['article'] . "<br>This has TextRank keywords: "; 
+	foreach(grabKeywords($_GET['article']) as $keyword){
+			echo $keyword;
+	}
+	echo '<br><br>';
 		if (grabOriginalArticleBody($_GET['article'])){
 			echo "<link href=\"./css/bootstrap.min.css\" rel=\"stylesheet\">
 <script src=\"./js/jquery-3.6.0.min.js\"></script>
