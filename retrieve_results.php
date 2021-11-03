@@ -38,7 +38,7 @@ if (isset($_GET['article'])){
 	require 'grab_original_articles.php';
 	echo 'You selected article number ' . $_GET['article'] . "<br>This has TextRank keywords: "; 
 	foreach(grabKeywords($_GET['article']) as $keyword){
-			echo $keyword;
+			echo $keyword . ", ";
 	}
 	echo '<br><br>';
 		if (grabOriginalArticleBody($_GET['article'])){
@@ -56,6 +56,7 @@ if (isset($_GET['article'])){
 							<th>
 							
 	<div class=\"rightPanel\">
+	
     <ul class=\"nav nav-pills\" id=\"tabList\">
         <li class=\"nav-item\">
             <a href=\"#tab1\" class=\"nav-link active\">Semantic Search Articles</a>
@@ -69,13 +70,21 @@ if (isset($_GET['article'])){
     </ul>
     <div class=\"tab-content\">
         <div class=\"tab-pane fade show active\" id=\"tab1\">
-            <p>";
+            <p><div class=\"overflow-auto\">";
 			require 'insert_semantic_search.php';
 			$resultArray = grabKeywords($_GET['article']);
 			foreach($resultArray as $keywords){
-			echo getSemanticURL($_GET['article'], $keywords) . '<br><br>';
+			echo $json_url = getSemanticURL($_GET['article'], $keywords);
+			echo "<br><br>";
+			$json_file = file_get_contents($json_url);
+			$data = json_decode($json_file,true);
+			for ($i = 0; $i < 9; $i++){				
+			echo "Title #$i: " . $data['data'][$i]['title'];
+			echo "<br>";
 			}
-			echo "</p>
+			echo "<br><br>----------------------------------------------<br>";
+			}
+			echo "</p></div>
         </div>
         <div class=\"tab-pane fade\" id=\"tab2\">
             <p>Tab 2 content</p>
@@ -96,7 +105,7 @@ if (isset($_GET['article'])){
 
 <style>
 .overflow-auto{
-	max-height: 500px;
+	max-height: 400px;
 	max-width: 800px;
 }
 .rightPanel{

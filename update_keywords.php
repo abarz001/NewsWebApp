@@ -42,7 +42,8 @@ function insertKeywords()
 		echo "<b><h1>TextRank keywords for fake news article $keyword_file_num </h1></b>";
 		
 		while ($keyword = fgets($file)){
-			echo $keyword;
+			$keyword = preg_replace('/\s+/', '', $keyword);
+			echo $keyword . ", ";
 			$conn = new mysqli($server, $sqlUser, $sqlPass, $db);
     $myTable = "keywords";
     $sqlStatement = "INSERT INTO $myTable
