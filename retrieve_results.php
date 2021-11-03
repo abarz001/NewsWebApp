@@ -25,15 +25,33 @@ foreach($results as $r){
 	echo '<pre>';
 	echo "Article #"; //debugging
 	print_r($r['_id']);
-	echo ': <a href=#';
+	echo ": <a href=./searchresults.php?search=$searchTerm&article=";
 	print_r($r['_id']);
-	echo  '">';
+	echo  '>';
 	print_r($r['_source']['title']);
 	echo '</a>';
 	echo ': ';	
-	
-	echo '<pre>';
 }
+echo '<br><br>';
+
+if (isset($_GET['article'])){
+	echo 'You selected article number ' . $_GET['article'];
+	require 'grab_original_articles.php';
+		if (grabOriginalArticleBody($_GET['article'])){
+			echo "<body>
+				 <div class=\"splitpanel\"><form action=\"\" method=\"post\" name=\"frmProfile\" id=\"frmProfile\">
+							<table width=\"650\" border=\"1\" align=\"center\" cellpadding=\"3\" cellspacing=\"3\">
+							<th>";
+							echo grabOriginalArticleBody($_GET['article']);
+							echo "</th>
+							<th>
+							Panel 2
+							</th>
+					</table></form></div>
+					</body>";
+		}
+}
+
 
 ?>
 
