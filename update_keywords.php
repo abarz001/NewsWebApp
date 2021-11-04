@@ -18,16 +18,6 @@ function insertKeywords()
     $sqlUser = "myadmin";
     $sqlPass = "myadminpass";
     $db = "PROJECT";
-	/* foreach($keywordFiles as $file){
-		$keyword_file_num = substr($keywordFiles[$counter-1],-6);
-		$keyword_file_num = substr($keyword_file_num,0,2);
-		if (strpos($keyword_file_num, '_') === 0){
-			$keyword_file_num = substr($keyword_file_num,-1);
-		}
-		echo $keyword_file_num;
-		echo '<br>';
-		$counter++;
-	} */
 	$counter = 1;
 	foreach($keywordFiles as $file) {
 

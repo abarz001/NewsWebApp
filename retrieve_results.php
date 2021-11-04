@@ -81,22 +81,32 @@ if (isset($_GET['article'])){
 			$data = json_decode($json_file,true);
 			$paperCount = 1;
 			if ($data['total'] > 0){
-			for ($i = 0; $i < 10; $i++){	
-			echo "- Refute Paper #$paperCount: " . $data['data'][$i]['title'];
+			for ($i = 0; $i < 10; $i++){
+			$refuteTitle = $data['data'][$i]['title'];
+			echo "- Refute Paper #$paperCount: " . $refuteTitle;
 			echo "<br><button class=\"btn btn-primary\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#details$paperCount\" aria-expanded=\"false\" aria-controls=\"details$paperCount\">
 			Show/hide details
 			</button>
 			<br><div class=\"collapse\" id=\"details$paperCount\">";
 			echo "<br>Authors: ";
+			$refuteAuthors = array();
 			foreach($data['data'][$i]['authors'] as $author){
 				echo $author['name'] . "; ";
+				array_push($refuteAuthors, $author['name']);
 			}
-			echo "<br><br>Year Published: " . $data['data'][$i]['year'];
-			echo "<br><br>Citation Count: " . $data['data'][$i]['citationCount'];
-			echo "<br><br>Abstract: " . $data['data'][$i]['abstract'] . "</div>";
+			$refuteAbstract = $data['data'][$i]['abstract'];
+			$refuteDate = $data['data'][$i]['year'];
+			$refuteCitations = $data['data'][$i]['citationCount'];
+			echo "<br><br>Year Published: " . $refuteDate;
+			echo "<br><br>Citation Count: " . $refuteCitations;
+			echo "<br><br>Abstract: " . $refuteAbstract . "</div>";
 			$paperCount++;
 			echo "<br><br>";
-			}
+			//Insert into refute_paper table if not already in there
+			require_once 'update_refute_papers.php';
+			insertScholarArticles($keywords, $refuteTitle, $refuteAuthors, $refuteAbstract, $refuteDate, $refuteCitations, $json_url, $_GET['article']);
+			} //end for loop
+			
 			echo "<br><br>----------------------------------------------<br>";
 			}
 			else {
