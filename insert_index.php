@@ -12,7 +12,7 @@ function InsertIndex($articleID, $title, $body){
 		]
 	];
 	$response = $client->index($params);
-	echo "<h3>Indexed the following:</h3>";
+	echo "<h3>Indexed:</h3>";
 	print_r($params);
 	echo "<br><h3><Response:/h3>";
 	print_r($response);
