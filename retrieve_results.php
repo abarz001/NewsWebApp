@@ -1,5 +1,9 @@
 <?php
 require 'vendor/autoload.php';
+echo "<link href=\"./css/bootstrap.min.css\" rel=\"stylesheet\">
+<script src=\"./js/jquery-3.6.0.min.js\"></script>
+<script src=\"./js/bootstrap.bundle.min.js\"></script>
+<script src=\"./js/load_tabs.js\"></script>";
 $searchTerm = $_GET['search'];
 $client = Elasticsearch\ClientBuilder::create()->build();
 
@@ -41,13 +45,10 @@ if (isset($_GET['article'])){
 			echo $keyword . ", ";
 	}
 	echo '<br><br>';
+		echo "<div class=\"loadingmsg\" style=\"display: block;\">Please wait while the data loads.....</div>";
 		if (grabOriginalArticleBody($_GET['article'])){
-			echo "<link href=\"./css/bootstrap.min.css\" rel=\"stylesheet\">
-<script src=\"./js/jquery-3.6.0.min.js\"></script>
-<script src=\"./js/bootstrap.bundle.min.js\"></script>
-<script src=\"./js/load_tabs.js\"></script>";
 			echo "<body>
-				 <div class=\"splitpanel\"><form action=\"\" method=\"post\" name=\"frmProfile\" id=\"frmProfile\">
+				 <div class=\"splitpanel\" style=\"display: none;\"><form action=\"\" method=\"post\" name=\"frmProfile\" id=\"frmProfile\">
 							<table class=\"paneltable\">
 							<th>";
 							echo "<div class=\"overflow-auto\" style=\"white-space: pre-wrap;\">";
@@ -152,3 +153,10 @@ if (isset($_GET['article'])){
 	 height: 850px;
 }
 </style>
+
+<script>
+$(document).ready(function() {
+    $(".splitpanel").delay(0).fadeIn(500);
+    $(".loadingmsg").delay(0).fadeOut(500);
+});
+</script>
