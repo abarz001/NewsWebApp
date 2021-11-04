@@ -1,4 +1,5 @@
 <?php
+	session_start();
     unset($_SESSION["userLoggedIn"]);
     unset($_SESSION["email"]);
     unset($_SESSION["firstName"]);
@@ -13,7 +14,10 @@
     session_start();
     require 'authenticate.php';
     $resultMessage = null;
-    $email = $_POST['email'];
+    if (isset($_POST['email'])){
+		$email = $_POST['email'];
+	}
+	
     if (isset($_POST['btnSendResetEmail'])) {
         $resetCode = md5($email . rand(0, 10000));
         if (SetResetCodeAndSendEmail($email, $resetCode)){

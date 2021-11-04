@@ -1,30 +1,30 @@
 <?php
 session_start();
 if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true){
-	if(isset($_POST['search'])){
-		echo '<center><br><br><br><br>Search Query: ' . $_POST['search'] . '<br><br>';
+	if(isset($_GET['search'])){
+		echo "
+		<body><br><br><br><center>
+    <form action=\"searchresults.php\" method=\"get\" name=\"frmSearch\" id=\"frmSearch\">
+<a href=\"index.php\"><input name=\"home\" type=\"button\" value=\"Home\" class=\"buttons\"></a>
+		<a href=\"profile.php\"><input name=\"userprofile\" type=\"button\" value=\"View/Update Profile Information\" class=\"buttons\"></a>
+        <a href=\"logout.php\"><input name=\"logoutbtn\" type=\"button\" value=\"Logout\" class=\"buttons\"></a>
+		<br><br><input type=\"search\" id=\"searchText\" name=\"search\" placeholder=\"Search for an article\" style=\"width: 400px\";>
+            <input type=\"submit\" value=\"Search\">
+    </form>
+    </center>
+</body>";
+
+		echo'
+		<center><br><br>Search Query: ' . $_GET['search'] . '<br><br>';
 		require 'retrieve_results.php';
-		/* require 'grab_original_articles.php';
-		if (grabOriginalArticleBody($_POST['search'])){
-			echo "<body>
-				 <div class=\"splitpanel\"><form action=\"\" method=\"post\" name=\"frmProfile\" id=\"frmProfile\">
-							<table width=\"650\" border=\"1\" align=\"center\" cellpadding=\"3\" cellspacing=\"3\">
-							<th>";
-							echo grabOriginalArticleBody($_POST['search']);
-							echo "</th>
-							<th>
-							Panel 2
-							</th>
-					</table></form></div>
-					</body>";
-		} */
+		echo '</center>';
 	}
 	else {
 		echo 'logged in, but no search word was detected.';
 	}
 }
 else {
-	echo 'Not logged in.';
+	header('Location: login.php');
 }
 ?>
 
@@ -38,4 +38,3 @@ else {
         }
     </style>
 </head>
-

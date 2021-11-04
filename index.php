@@ -10,6 +10,10 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
     $adminUser = $_SESSION['adminUser'];
     $emailVerified = $_SESSION['emailVerified'];
     $approvedByAdmin = $_SESSION['approvedByAdmin'];
+	echo "<link href=\"./css/bootstrap.min.css\" rel=\"stylesheet\">
+<script src=\"./js/jquery-3.6.0.min.js\"></script>
+<script src=\"./js/bootstrap.bundle.min.js\"></script>
+<script src=\"./js/load_tabs.js\"></script>";
     //For Debugging 
     //echo 'Logged in as: ' . '<br><br>' . $userEmail . '.<br>' . md5($userEmail . $lastLogin) . '<br>' . $lastLogin;
     if (isset($_SESSION['emailVerified']) && $_SESSION['emailVerified']) {
@@ -56,9 +60,9 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
 </head>
 
 <body><br><center>
-    <form action="" method="post" name="frmProfile" id="frmProfile">
+    <form action="searchresults.php" method="get" name="frmProfile" id="frmProfile">
               <input type="search" id="searchText" name="search" placeholder="Search for an article" style="width: 400px";>
-            <button>Search</button>
+            <input type="submit" value="Search">
             <br><br>
         <a href="profile.php"><input name="userprofile" type="button" value="View/Update Profile Information" class="buttons"></a><br><br>
         <a href="logout.php"><input name="logoutbtn" type="button" value="Logout" class="buttons"></a>
