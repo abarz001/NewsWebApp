@@ -1,19 +1,27 @@
 <?php
 session_start();
-
+echo '<center><br><a href="index.php">Home Page</a><br>
+<a href="logout.php">Logout</a></center><br><br>';
+if (!isset($_SESSION['adminUser']) || !$_SESSION['adminUser']) {
+        echo 'Unauthorized user. You must be an admin to access this page.';
+        return false;
+    }
+    else {
 //Check if a list has been pasted
 if (isset($_POST['btnUpdateKeywords'])){
 	require 'update_keywords.php';
 	if (insertKeywords()){
 	echo "<h1>Success! Inserted everything above into the keywords table.</h1><br>";
+	echo '<center><br><a href="index.php">Home Page</a><br>
+<a href="logout.php">Logout</a></center><br><br>';
 	exit;
 	}
 	else {
 		echo "<h1>Warning, there was an error inserting into the keywords table.</h1>";
 		exit;
 	}
-
 }
+	}
 ?>
 
 
