@@ -49,7 +49,9 @@ if (isset($_GET['article'])){
 							<table class=\"paneltable\">
 							<th>";
 							echo "<div class=\"overflow-auto\" style=\"white-space: pre-wrap;\">";
-							echo grabOriginalArticleTitle($_GET['article']) . '<br><br>';
+							echo "<h2>";
+							echo grabOriginalArticleTitle($_GET['article']);
+							echo "</h2>" . '<br><br>';
 							echo grabOriginalArticleBody($_GET['article']);
 							echo "</div></th>
 							<th>
@@ -74,7 +76,7 @@ if (isset($_GET['article'])){
 			$keywordstemp = grabKeywords($_GET['article']);
 			$keywords = implode("+",$keywordstemp);
 			$json_url = getSemanticURL($_GET['article'], $keywords);
-			echo "Keywords: " . implode(",",$keywordstemp);
+			echo "TextRank Keywords: " . implode(",",$keywordstemp);
 			echo "<br><br>";
 			$json_file = file_get_contents($json_url);
 			$data = json_decode($json_file,true);
@@ -82,7 +84,7 @@ if (isset($_GET['article'])){
 			if ($data['total'] > 0){
 			for ($i = 0; $i < $data['total'] && $i < 10; $i++){
 			$refuteTitle = $data['data'][$i]['title'];
-			echo "- Refute Paper #$paperCount: " . $refuteTitle;
+			echo "<h4>- Refute Paper #$paperCount: </h4>" . $refuteTitle;
 			echo "<br><button class=\"btn btn-primary\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#details$paperCount\" aria-expanded=\"false\" aria-controls=\"details$paperCount\">
 			Show/hide details
 			</button>
@@ -119,7 +121,9 @@ if (isset($_GET['article'])){
             <p><div class=\"overflow-auto\" style=\"white-space: pre-wrap;\">";
 			
 		}
+			echo "<h2>";
 			echo grabSnopesTitle($_GET['article']);
+			echo "</h2>";
 			echo "<br><br>";
 			echo grabSnopesBody($_GET['article']);
 			echo "</p></div>
@@ -140,18 +144,21 @@ if (isset($_GET['article'])){
 
 <style>
 .overflow-auto{
-	height: 600px;
-	width: 600px;
-	border-style: double;
-}
-.rightPanel{
-	height: 600px;
-	width: 600px;
-	
+	height: 700px;
+	width: 770px;
+	border-width: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	background: linear-gradient(to right, #FAFAFA, #A4BFDE);
+	overflow-y: scroll;
+overflow-x: hidden;
 }
 .paneltable{
-	 border-style: dotted;
-	 height: 600px;
+	 border-style: dashed;
+	 border-width: 1px;
+	 height: 700px;
+	 overflow-y: scroll;
+overflow-x: hidden;
 margin-bottom: 150px;
 }
 </style>
