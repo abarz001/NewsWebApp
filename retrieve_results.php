@@ -25,6 +25,7 @@ if ($results['hits']['total'] > 0){
 }
 
 echo 'Total number of results: ' . count($results) . '<br><br>';
+$searchTerm = str_replace(' ', '+', $searchTerm);
 foreach($results as $r){
     echo '<br>';
 	echo "Article #";
