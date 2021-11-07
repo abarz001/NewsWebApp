@@ -24,7 +24,7 @@ require 'grab_original_articles.php';
 	}
 
 //Get all of the keywords for each 
-for ($x = 1; $x <= $numArticles; $x++){
+for ($x = 1; $x <= 10; $x++){
 			$keywordstemp = grabKeywords($x);
 			$keywords = implode("+",$keywordstemp);
 			$json_url = getSemanticURL($x, $keywords);
