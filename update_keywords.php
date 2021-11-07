@@ -13,7 +13,6 @@ function insertKeywords()
 	}
 	natsort($keywordFiles);
 	
-	$counter = 1;
 	$server = "localhost";
     $sqlUser = "myadmin";
     $sqlPass = "myadminpass";
@@ -23,21 +22,15 @@ function insertKeywords()
 
 		$file = fopen("$file", 'r');
 		
-		//Get the current file number
-		$keyword_file_num = substr($keywordFiles[$counter-1],-6);
-		$keyword_file_num = substr($keyword_file_num,0,2);
-		if (strpos($keyword_file_num, '_') === 0){
-			$keyword_file_num = substr($keyword_file_num,-1);
-		}
-		echo "<b><h1>TextRank keywords for fake news article $keyword_file_num </h1></b>";
-		
+		echo "<b><h1>TextRank keywords for fake news article $counter </h1></b>";
+		$keywordRank = 1;
 		while ($keyword = fgets($file)){
 			$keyword = preg_replace('/\s+/', '', $keyword);
 			echo $keyword . ", ";
 			$conn = new mysqli($server, $sqlUser, $sqlPass, $db);
     $myTable = "keywords";
     $sqlStatement = "INSERT INTO $myTable
-	VALUES (NULL,'$keyword', '$keyword_file_num', '$counter')";
+	VALUES (NULL,'$keyword', '$counter', '$keywordRank')";
 
     //Run the SQL statement, return false if error.
     $query_result = $conn->query($sqlStatement);
@@ -46,6 +39,7 @@ function insertKeywords()
         echo "<br>Sorry, the keyword insert failed.";
 		return false;
     }
+	$keywordRank++;
 		}
 		fclose($file);
 		$counter++;

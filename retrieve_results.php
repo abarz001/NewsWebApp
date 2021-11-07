@@ -40,10 +40,7 @@ echo '<br><br>';
 
 if (isset($_GET['article'])){
 	require 'grab_original_articles.php';
-	echo 'You selected article number ' . $_GET['article'] . "<br>This has TextRank keywords: "; 
-	foreach(grabKeywords($_GET['article']) as $keyword){
-			echo $keyword . ", ";
-	}
+	echo 'You selected article # ' . $_GET['article'] . ".<br>"; 
 	echo '<br><br>';
 		echo "<div class=\"loadingmsg\" style=\"display: block;\">Please wait while the data loads.....</div>";
 		if (grabOriginalArticleBody($_GET['article'])){
@@ -52,11 +49,12 @@ if (isset($_GET['article'])){
 							<table class=\"paneltable\">
 							<th>";
 							echo "<div class=\"overflow-auto\" style=\"white-space: pre-wrap;\">";
+							echo grabOriginalArticleTitle($_GET['article']) . '<br><br>';
 							echo grabOriginalArticleBody($_GET['article']);
 							echo "</div></th>
 							<th>
 							
-	<div class=\"rightPanel\">
+	<div class=\"overflow-auto\">
 	
     <ul class=\"nav nav-pills\" id=\"tabList\">
         <li class=\"nav-item\">
@@ -73,16 +71,16 @@ if (isset($_GET['article'])){
         <div class=\"tab-pane fade show active\" id=\"tab1\">
             <p><div class=\"overflow-auto\">";
 			require 'insert_semantic_search.php';
-			$resultArray = grabKeywords($_GET['article']);
-			foreach($resultArray as $keywords){
+			$keywordstemp = grabKeywords($_GET['article']);
+			$keywords = implode("+",$keywordstemp);
 			$json_url = getSemanticURL($_GET['article'], $keywords);
-			echo "Keyword: $keywords";
+			echo "Keywords: " . implode(",",$keywordstemp);
 			echo "<br><br>";
 			$json_file = file_get_contents($json_url);
 			$data = json_decode($json_file,true);
 			$paperCount = 1;
 			if ($data['total'] > 0){
-			for ($i = 0; $i < 10; $i++){
+			for ($i = 0; $i < $data['total'] && $i < 10; $i++){
 			$refuteTitle = $data['data'][$i]['title'];
 			echo "- Refute Paper #$paperCount: " . $refuteTitle;
 			echo "<br><button class=\"btn btn-primary\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#details$paperCount\" aria-expanded=\"false\" aria-controls=\"details$paperCount\">
@@ -114,7 +112,7 @@ if (isset($_GET['article'])){
 				echo 'No refute papers found for this keyword.';
 				echo "<br><br>----------------------------------------------<br>";
 			}
-			}
+			
 			echo "</p></div>
         </div>
         <div class=\"tab-pane fade\" id=\"tab2\">
@@ -122,6 +120,7 @@ if (isset($_GET['article'])){
 			
 		}
 			echo grabSnopesTitle($_GET['article']);
+			echo "<br><br>";
 			echo grabSnopesBody($_GET['article']);
 			echo "</p></div>
         </div>
@@ -141,16 +140,19 @@ if (isset($_GET['article'])){
 
 <style>
 .overflow-auto{
-	max-height: 800px;
-	max-width: 700px;
+	height: 600px;
+	width: 600px;
+	border-style: double;
 }
 .rightPanel{
-	max-height: 850px;
-	max-width: 700px;
+	height: 600px;
+	width: 600px;
+	
 }
 .paneltable{
 	 border-style: dotted;
-	 height: 850px;
+	 height: 600px;
+margin-bottom: 150px;
 }
 </style>
 

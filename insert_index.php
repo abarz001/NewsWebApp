@@ -12,11 +12,7 @@ function InsertIndex($articleID, $title, $body){
 		]
 	];
 	$response = $client->index($params);
-	echo "<h3>Indexed:</h3>";
-	print_r($params);
-	echo "<br><h3><Response:/h3>";
-	print_r($response);
-	echo "<br>";
+	echo "Successfully indexed article title and body in Elasticsearch!<br>";
 }
 
 ?>
