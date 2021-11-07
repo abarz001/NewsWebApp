@@ -1,8 +1,7 @@
-news
-seattle
-fox
-vaccine
-vaccination
-vaccinated
-vaccinate
-said
+whatsapp
+messaging
+messages
+ios
+version
+versions
+email

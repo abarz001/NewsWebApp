@@ -1,7 +1,11 @@
-october
-fda
-covid
+virus
+questions
+question
+reported
+reports
+reportedly
 vaccines
 vaccine
 vaccination
-information
+theory
+theories

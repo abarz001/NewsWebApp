@@ -1,10 +1,7 @@
-vaccine
-vaccination
-vaccinated
-vaccines
-vaccinations
-children
-trials
-trial
-workers
-said
+collar
+barking
+bark
+dogs
+dog
+ghost
+email

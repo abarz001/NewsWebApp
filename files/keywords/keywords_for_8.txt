@@ -1,5 +1,7 @@
-pittsburgh
-news
-weather
-ohio
-cbs
+location
+locations
+rescue
+coloradoan
+post
+posts
+gps

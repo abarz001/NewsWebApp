@@ -1,8 +1,9 @@
-box
-boxes
-amazon
-paper bag
-bags
-package
-packages
-packaging
+vaccine
+vaccines
+vaccination
+covid
+authorization
+authorizations
+authorized
+government
+fda

@@ -1,8 +1,6 @@
-newsweek
-newsweeks
-isopods
-isopod
-parasitic
-parasite
-aquarium
-aquariums
+replies
+reply
+days ago
+police
+comments
+comment

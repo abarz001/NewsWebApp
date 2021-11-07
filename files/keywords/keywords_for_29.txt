@@ -1,8 +1,9 @@
-newsweek
-newsweeks
-flag
-flags
-airlines
-airline
-pilots
-southwest
+news
+weeks
+week
+weekly
+uk
+informed
+information
+inform
+team

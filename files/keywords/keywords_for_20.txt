@@ -1,8 +1,6 @@
-amp
-stan
-laundrie
-laundries
-petito
-petitos
-love
-loved
+border
+administration
+townhall
+migrants
+migrant
+nbsp

@@ -1,6 +1,7 @@
+media
 x
-black
-amp
-thanksgiving
-contributor
-contributors
+right
+rights
+squid
+game
+games
