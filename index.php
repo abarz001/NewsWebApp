@@ -21,9 +21,14 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
             require 'authenticate.php';
             if (CheckTwoFactor($userEmail, md5($userEmail . $lastLogin), $lastLogin)) {
                 if ($adminUser){
-                    echo "<center><br><br><br><br>Welcome, $firstName, you are an admin!<br>";
+                    echo "<center><br><br><br><br>Welcome, $firstName! [administrator]<br>";
                     echo '<br><a href="userqueue.php"><input name="userqueue" type="button" value="Approve/Reject User Registration Requests" class="buttons">
-                    </button></a><br><br></center>';
+                    </button></a><a href="addarticles.php"><input name="addarticles" type="button" value="Add Articles" class="buttons"></button></a>
+					<a href="insert_keywords.php"><input name="addkeywords" type="button" value="Update Keywords Table" class="buttons"></button></a>
+                    </button>
+					<a href="update_semantic.php"><input name="addsemantic" type="button" value="Update Semantic Scholar Table" class="buttons"></button></a>
+                    </button>
+					</center>';
                 }
                 else {
                     echo "<center><br><br><br><br>Welcome $firstName! Everything is good to go and you have full access to the site.<br><br></center>";
