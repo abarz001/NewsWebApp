@@ -79,7 +79,7 @@ require_once 'simple_html_dom.php';
 	}
 	$html = file_get_html($snopesArticleURL);
 	$html->find('body',0)->plaintext;
-	$body = $html->find('body',0)->plaintext;
+	$body = $html->find('div[class="single-body card card-body rich-text"]',0)->plaintext;
 	$body = str_replace('\'', '', $body);
 	return $body;
 }
