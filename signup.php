@@ -1,5 +1,6 @@
 <?php
 require 'authenticate.php';
+require_once('favicon.php');
 session_start();
 $errorMessage = 'Create a user account';
 
@@ -114,6 +115,7 @@ if (
         </table>
     </form>
     </div>
+    <?php require_once('footer.php'); ?>
 </body>
 
 </html>

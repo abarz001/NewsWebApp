@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('favicon.php');
 if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true){
 	if(isset($_GET['search'])){
 		echo "
@@ -38,3 +39,5 @@ else {
         }
     </style>
 </head>
+
+<?php require_once('footer.php'); ?>

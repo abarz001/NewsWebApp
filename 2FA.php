@@ -1,6 +1,7 @@
 <?php
 session_start();
 require 'authenticate.php';
+require_once('favicon.php');
 if (isset($_GET['email']) || isset($_SESSION['email'])) {
 
     $lastLogin = $_SESSION['lastLogin'];
@@ -74,6 +75,7 @@ if (isset($_GET['email']) || isset($_SESSION['email'])) {
         </table>
     </form>
     </div>
+    <?php require_once('footer.php'); ?>
 </body>
 
 </html>

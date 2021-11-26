@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+require_once('favicon.php');
 if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
     $userEmail = $_SESSION['email'];
     $firstName = $_SESSION['firstName'];
@@ -73,6 +73,7 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
         <a href="logout.php"><input name="logoutbtn" type="button" value="Logout" class="buttons"></a>
     </form>
     </center>
+    <?php require_once('footer.php'); ?>
 </body>
 
 </html>
