@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-3 col-md-3 item">
-                    <h3>About</h3>
+                    <h3>About NewsR</h3>
                     <ul>
                         <li>Created by Aran Barzanji</li>
                         <li>Old Dominion University</li>
@@ -12,11 +12,11 @@
                     </ul>
                 </div>
                 <div class="col-md-3 col-md-3 item">
-                    <h3>Contact</h3>
+                    <h3>Contact Us</h3>
                     <ul>
-                        <li>Email Address: abarz001@odu.edu</li>
-                        <li>Phone #: 757-123-4567</li>
-                        <li>NewsR - Fake News Analyzer © 2021</li>
+                        <li>Email: abarz001@odu.edu</li>
+                        <li>Phone: 757-123-4567</li>
+                        <li>NewsR © 2021</li>
                     </ul>
                 </div>
 
