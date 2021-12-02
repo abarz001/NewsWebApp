@@ -11,7 +11,7 @@ $params = [
     'index' => 'fake_articles',
     'body'  => [
         'query' => [
-            'match' => ['title' => $searchTerm],
+            'fuzzy' => ['title' => $searchTerm],
 		],
 		'highlight' => [
 			'pre_tags' => [
