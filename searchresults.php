@@ -17,7 +17,7 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
 </body>";
 
 		echo '
-		<center><br><br>Search Query: ' . $_GET['search'] . '<br><br>';
+		<center><br><br>Search Query: ' . htmlspecialchars($_GET['search']) . '<br><br>';
 		require 'retrieve_results.php';
 		echo '</center>';
 	} else {
