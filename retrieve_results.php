@@ -12,8 +12,19 @@ $params = [
     'body'  => [
         'query' => [
             'match' => ['title' => $searchTerm],
-			'match' => ['website_text' => $searchTerm ]
-        ]
+		],
+		'highlight' => [
+			'pre_tags' => [
+				'<mark>'
+			],
+			'post_tags' => [
+				'</mark>'
+			],
+			'fields' => [
+				'title' => new stdClass(),
+			],
+			'require_field_match' => false
+		]
     ]
 ];
 
@@ -33,9 +44,17 @@ foreach($results as $r){
 	echo ": <a href=?search=$searchTerm&article=";
 	print_r($r['_id']);
 	echo  '>';
-	print_r($r['_source']['title']);
+	if (isset($r['highlight']['title'])){
+		foreach($r['highlight']['title'] as $highlightedTitle){
+				if (isset($highlightedTitle)){
+					echo $highlightedTitle;
+				}
+			}
+		}
+		else {
+			print_r($r['_source']['title']);
+		}
 	echo '</a>';
-	echo ': ';	
 }
 echo '<br><br>';
 
