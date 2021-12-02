@@ -13,7 +13,8 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
 	echo "<link href=\"./css/bootstrap.min.css\" rel=\"stylesheet\">
 <script src=\"./js/jquery-3.6.0.min.js\"></script>
 <script src=\"./js/bootstrap.bundle.min.js\"></script>
-<script src=\"./js/load_tabs.js\"></script>";
+<script src=\"./js/load_tabs.js\"></script>
+<script src=\"./js/speech2text.js\"></script>";
     //For Debugging 
     //echo 'Logged in as: ' . '<br><br>' . $userEmail . '.<br>' . md5($userEmail . $lastLogin) . '<br>' . $lastLogin;
     if (isset($_SESSION['emailVerified']) && $_SESSION['emailVerified']) {
@@ -65,9 +66,10 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
 </head>
 
 <body><br><center>
-    <form action="searchresults.php" method="get" name="frmProfile" id="frmProfile">
+    <form action="searchresults.php" method="get" name="frmSearch" id="frmSearch">
               <input type="search" id="searchText" name="search" placeholder="Search for an article" style="width: 400px";>
             <input type="submit" value="Search">
+            <input name="speech2text" type="button" value="Voice Search" class="buttons" onclick="startDictation(event)">
             <br><br>
         <a href="profile.php"><input name="userprofile" type="button" value="View/Update Profile Information" class="buttons"></a><br><br>
         <a href="logout.php"><input name="logoutbtn" type="button" value="Logout" class="buttons"></a>
