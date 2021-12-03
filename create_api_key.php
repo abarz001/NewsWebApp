@@ -25,6 +25,7 @@ if (!isset($_SESSION['userLoggedIn']) || $_SESSION['userLoggedIn'] == false) {
         } else {
             if ($query_result->num_rows > 0) {
                 $CurrentAPIKey = $query_result->fetch_row();
+                $CurrentAPIKey = $CurrentAPIKey[0];
             } else {
                 $CurrentAPIKey = "None";
             }
@@ -63,8 +64,12 @@ if (!isset($_SESSION['userLoggedIn']) || $_SESSION['userLoggedIn'] == false) {
             <table border="0" align="center" cellpadding="2" cellspacing="2">
                 <tr>
                     <td><br><br><br><br><br>Current API Key: <?php 
-                    if (isset($CurrentAPIKey)){
+                    if (isset($CurrentAPIKey[0])){
                         print_r($CurrentAPIKey);
+                        echo "<br><br>API Usage: <br>
+                        http://localhost/api.php?key=";
+                        print_r($CurrentAPIKey);
+                        echo "&query=YOURQUERY&n=ARTICLELIMIT";
                         } else 
                         { 
                             echo "None";
