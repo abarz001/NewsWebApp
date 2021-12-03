@@ -37,7 +37,7 @@ if (
                     '$firstName', '$lastName',
                     '$organization', '$currentDateTime',
                       null, null, 0,
-                    '$verificationCode',0,0,0,0)";
+                    '$verificationCode',0,0,0,0, null)";
             SendVerificationEmail($loginEmail, $loginPassword);
             // Insert into db
             $query_result = $conn->query($insertStatement)

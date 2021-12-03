@@ -8,6 +8,7 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
     <form action=\"searchresults.php\" method=\"get\" name=\"frmSearch\" id=\"frmSearch\">
 <a href=\"index.php\"><input name=\"home\" type=\"button\" value=\"Home\" class=\"buttons\"></a>
 		<a href=\"profile.php\"><input name=\"userprofile\" type=\"button\" value=\"View/Update Profile Information\" class=\"buttons\"></a>
+		<a href=\"create_api_key.php\"><input name=\"apikey\" type=\"button\" value=\"View/Update API Key\" class=\"buttons\"></a>
         <a href=\"logout.php\"><input name=\"logoutbtn\" type=\"button\" value=\"Logout\" class=\"buttons\"></a>
 		<br><br><input type=\"search\" id=\"searchText\" name=\"search\" placeholder=\"Search for an article\" style=\"width: 400px\";>
             <input type=\"submit\" value=\"Search\">
