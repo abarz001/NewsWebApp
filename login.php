@@ -54,58 +54,58 @@ if (isset($_POST['email']) && isset($_POST['pass'])) {
 
 <head>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
+    <script src="./js/bootstrap.bundle.min.js"></script>
 
     <title>User Login</title>
     <style>
         .loginform {
-            border-width: 5px;
-            border-style: groove;
-            margin: 0;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            -ms-transform: translate(-40%, -40%);
-            transform: translate(-50%, -65%);
+            border-width: 2px;
+            border-style: dashed;
+            margin: 150;
+            min-width: 335px;
+            border-color: gray;
         }
-
         .buttons {
             width: 150px;
             height: 25px;
         }
+        
     </style>
 </head>
 
 <body>
-    <div class="loginform">
+<div class="loginform">
+    <div class="container">
+    
         <center><?php echo $errorMessage . '<br>' . $recaptchaError ?></center>
         <form action="" method="post" name="frmLogin" id="frmLogin">
-            <table width="600" border="0" align="center" cellpadding="2" cellspacing="2">
-                <tr>
-                    <td width="300">Email Address</td>
-                    <td><input name="email" type="email" id="email"></td>
-                </tr>
-                <tr>
-                    <td width="230">Password</td>
-                    <td><input name="pass" type="password" id="pass"></td>
-                </tr>
-                <tr>
-                    <td width="150"></td>
-                    <td>
+            <table border="0" align="center" cellpadding="2" cellspacing="2">
+            <div class="row">
+            <div class='col-md-4 col-sm-12'>Email Address</div>
+            <div class='col-md-4 col-sm-12'><div class="input-group mb-3"><input name="email" type="email" id="email"></div></div>
+            </div>
+            <div class="row">
+            <div class='col-md-4 col-sm-12'>Password</div>
+            <div class='col-md-4 col-sm-12'><input name="pass" type="password" id="pass"></div>
+            </div>
+            <div class="row">
+            <div class='col-md-4 col-sm-12'></div>
+            <div class='col-md-4 col-sm-12'>
                     <br><div class="g-recaptcha" data-sitekey="6Ldg4F8dAAAAAIKQ-Dcs-qnGwN9lOMv469KCKkD7"></div><br>
-                        <input name="btnLogin" type="submit" id="btnLogin" value="Login" class="buttons">
-                    </td>
-                </tr>
-                <tr>
-                    <td width="150">Forgot password?</td>
-                    <td><a href="./sendresetemail.php"><input name="resetpass" type="button" value="Reset Password" class="buttons"></a></td>
-                </tr>
-                <tr>
-                    <td width="150">No account?</td>
-                    <td><a href="./signup.php"><input name="signup" type="button" value="Sign Up" class="buttons"></a></td>
-                </tr>
+                        <input name="btnLogin" type="submit" id="btnLogin" value="Login" class="btn btn-secondary">
+            </div>
+            </div><br>
+            <div class="row">
+            <div class='col-md-4 col-sm-12'>Forgot password?</div>
+            <div class='col-md-4 col-sm-12'><a href="./sendresetemail.php"><input name="resetpass" type="button" value="Reset Password" class="btn btn-secondary"></a></div>
+            </div><br>
+            <div class="row">
+            <div class='col-md-4 col-sm-12'>No account?</div>
+            <div class='col-md-4 col-sm-12'><a href="./signup.php"><input name="signup" type="button" value="Sign Up" class="btn btn-secondary"></a></div>
+            </div>
             </table>
         </form>
+    </div>
     </div>
     <?php require_once('footer.php'); ?>
 </body>

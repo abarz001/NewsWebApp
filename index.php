@@ -22,12 +22,12 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
             require 'authenticate.php';
             if (CheckTwoFactor($userEmail, md5($userEmail . $lastLogin), $lastLogin)) {
                 if ($adminUser){
-                    echo "<center><br><br><br><br>Welcome, $firstName! [administrator]<br>";
-                    echo '<br><a href="userqueue.php"><input name="userqueue" type="button" value="Approve/Reject User Registration Requests" class="buttons">
-                    </button></a><a href="addarticles.php"><input name="addarticles" type="button" value="Add Articles" class="buttons"></button></a>
-					<a href="insert_keywords.php"><input name="addkeywords" type="button" value="Update Keywords Table" class="buttons"></button></a>
+                    echo "<div class=\"container-fluid\"><div class=\"row\"><center><br><br><br><br>Welcome, $firstName! [administrator]</div><br>";
+                    echo '<br><center><a href="userqueue.php"><input name="userqueue" type="button" value="Approve/Reject User Registration Requests" class="btn btn-secondary"></button></a>
+                    <a href="addarticles.php"><input name="addarticles" type="button" value="Add Articles" class="btn btn-secondary"></button></a>
+					<a href="insert_keywords.php"><input name="addkeywords" type="button" value="Update Keywords Table" class="btn btn-secondary"></button></a>
                     </button>
-					<a href="update_semantic.php"><input name="addsemantic" type="button" value="Update Semantic Scholar Table" class="buttons"></button></a>
+					<a href="update_semantic.php"><input name="addsemantic" type="button" value="Update Semantic Scholar Table" class="btn btn-secondary"></button></a>
                     </button>
 					</center>';
                 }
@@ -58,6 +58,7 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
 
 <head>
     <title>Fake News Analyzer Home Page</title>
+    <script src="./js/bootstrap.bundle.min.js"></script>
     <style>
             .buttons{
             height:30px;
@@ -66,16 +67,18 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
 </head>
 
 <body><br><center>
+    
     <form action="searchresults.php" method="get" name="frmSearch" id="frmSearch"><br>
-              <input type="search" id="searchText" name="search" placeholder="Search for an article" style="width: 400px";>
-            <input type="submit" value="Search">
-            <input name="speech2text" type="button" value="Voice Search" class="buttons" onclick="startDictation(event)">
+            <input type="search" id="searchText" name="search" placeholder="Search for an article" style="width: 400px";>
+            <input type="submit" value="Search" class="btn btn-primary">
+            <input name="speech2text" type="button" value="Voice Search" class="btn btn-primary" onclick="startDictation(event)">
             <br><br><br>
-        <a href="profile.php"><input name="userprofile" type="button" value="View/Update Profile Information" class="buttons"></a>
-        <a href="create_api_key.php"><input name="apikey" type="button" value="View/Update API Key" class="buttons"></a><br><br>
-        <a href="logout.php"><input name="logoutbtn" type="button" value="Logout" class="buttons"></a>
+        <a href="profile.php"><input name="userprofile" type="button" value="View/Update Profile Information" class="btn btn-secondary"></a>
+        <a href="create_api_key.php"><input name="apikey" type="button" value="View/Update API Key" class="btn btn-secondary"></a><br><br>
+        <a href="logout.php"><input name="logoutbtn" type="button" value="Logout" class="btn btn-secondary"></a>
     </form>
     </center>
+    </div>
     <?php require_once('footer.php'); ?>
 </body>
 
