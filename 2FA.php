@@ -1,6 +1,7 @@
 <?php
 session_start();
 require 'authenticate.php';
+require_once('favicon.php');
 if (isset($_GET['email']) || isset($_SESSION['email'])) {
 
     $lastLogin = $_SESSION['lastLogin'];
@@ -36,8 +37,9 @@ if (isset($_GET['email']) || isset($_SESSION['email'])) {
     <title>2FA Authentication - Continue to login</title>
         <style>
         .twofa {
-            border-width: 5px;
-            border-style: groove;
+            border-width: 2px;
+            border-style: dashed;
+            border-color: gray;
             margin: 0;
             position: absolute;
             top: 50%;
@@ -50,6 +52,7 @@ if (isset($_GET['email']) || isset($_SESSION['email'])) {
             text-align: center;
         }
     </style>
+    <script src="./js/bootstrap.bundle.min.js"></script>
 </head>
 
 
@@ -67,13 +70,14 @@ if (isset($_GET['email']) || isset($_SESSION['email'])) {
             </tr>
             <tr>
                 <td colspan="2">
-                    <center><br><input name="btnContinue" type="submit" id="btnContinue" value="Complete Login">
+                    <center><br><input name="btnContinue" type="submit" id="btnContinue" value="Complete Login" class="btn btn-secondary">
                     </center><br>
                 </td>
             </tr>
         </table>
     </form>
     </div>
+    <?php require_once('footer.php'); ?>
 </body>
 
 </html>

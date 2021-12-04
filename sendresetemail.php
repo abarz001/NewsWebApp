@@ -1,5 +1,6 @@
 <?php
 	session_start();
+    require_once('favicon.php');
     unset($_SESSION["userLoggedIn"]);
     unset($_SESSION["email"]);
     unset($_SESSION["firstName"]);
@@ -57,6 +58,7 @@
         </table>
         <center><br><?php echo $resultMessage ?></center>
     </form>
+    <?php require_once('footer.php'); ?>
 </body>
 
 </html>

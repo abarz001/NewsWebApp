@@ -4,16 +4,27 @@ echo "<link href=\"./css/bootstrap.min.css\" rel=\"stylesheet\">
 <script src=\"./js/jquery-3.6.0.min.js\"></script>
 <script src=\"./js/bootstrap.bundle.min.js\"></script>
 <script src=\"./js/load_tabs.js\"></script>";
-$searchTerm = $_GET['search'];
+$searchTerm = htmlspecialchars($_GET['search']);
 $client = Elasticsearch\ClientBuilder::create()->build();
 
 $params = [
     'index' => 'fake_articles',
     'body'  => [
         'query' => [
-            'match' => ['title' => $searchTerm],
-			'match' => ['website_text' => $searchTerm ]
-        ]
+            'fuzzy' => ['title' => $searchTerm],
+		],
+		'highlight' => [
+			'pre_tags' => [
+				'<mark>'
+			],
+			'post_tags' => [
+				'</mark>'
+			],
+			'fields' => [
+				'title' => new stdClass(),
+			],
+			'require_field_match' => false
+		]
     ]
 ];
 
@@ -33,9 +44,17 @@ foreach($results as $r){
 	echo ": <a href=?search=$searchTerm&article=";
 	print_r($r['_id']);
 	echo  '>';
-	print_r($r['_source']['title']);
+	if (isset($r['highlight']['title'])){
+		foreach($r['highlight']['title'] as $highlightedTitle){
+				if (isset($highlightedTitle)){
+					echo $highlightedTitle;
+				}
+			}
+		}
+		else {
+			print_r($r['_source']['title']);
+		}
 	echo '</a>';
-	echo ': ';	
 }
 echo '<br><br>';
 
@@ -129,8 +148,64 @@ if (isset($_GET['article'])){
 			echo grabSnopesBody($_GET['article']);
 			echo "</p></div>
         </div>
-        <div class=\"tab-pane fade\" id=\"tab3\">
-            <p>Coming soon</p>
+        <div class=\"tab-pane fade\" id=\"tab3\">";
+		require_once 'SurveyProcess.php';
+		echo "<br>
+		Article #  " . $_GET['article'];
+		if (isset($_POST['ArticleTrueOrFalse']) 
+			&& isset($_POST['PriorBelievesOnTopic'])
+			&& isset($_POST['PriorBeliefsAlign'])
+			&& isset($_POST['DidSystemChangeBelief'])
+			&& isset($_POST['WillingnessToAdoptSystem'])){
+				SubmitSurvey($_SESSION['email'], $_GET['article'], $_POST['ArticleTrueOrFalse'],
+				$_POST['PriorBelievesOnTopic'], $_POST['PriorBeliefsAlign'],
+				$_POST['DidSystemChangeBelief'], $_POST['WillingnessToAdoptSystem']);
+			}
+		if (CheckIfUserAlreadyAnsweredSurvey($_SESSION['email'], $_GET['article'])){
+			echo 
+			"<br>
+			<form action=\"\">
+			1. Was the article true or false based on SciPEP's recommendation?<br>
+			<input type=\"radio\" name=\"ArticleTrueOrFalse\" value=\"True\" required> True<br>
+			<input type=\"radio\" name=\"ArticleTrueOrFalse\" value=\"False\"> False<br>
+			<input type=\"radio\" name=\"ArticleTrueOrFalse\" value=\"I do not know\"> I do not know<br>
+	
+			<br><br>
+	
+			2. Did you have any prior beliefs/opinions about this topic?<br>
+			<input type=\"radio\" name=\"PriorBelievesOnTopic\" value=\"Yes\" required> Yes<br>
+			<input type=\"radio\" name=\"PriorBelievesOnTopic\" value=\"No\"> No<br>
+	
+			<br><br>
+			3. Did your prior beliefs/opinions on this topic align with our recommendation?<br>
+			<input type=\"radio\" name=\"PriorBeliefsAlign\" value=\"Yes\" required> Yes<br>
+			<input type=\"radio\" name=\"PriorBeliefsAlign\" value=\"No\"> No<br>
+			<input type=\"radio\" name=\"PriorBeliefsAlign\" value=\"Not Applicable\"> Not Applicable<br>
+	
+			<br><br>
+	
+			4. If you held prior beliefs/opinions that did not align with the system’s
+			recommendation, did the system change your beliefs/opinions on this topic?<br>
+			<input type=\"radio\" name=\"DidSystemChangeBelief\" value=\"Yes\" required> Yes<br>
+			<input type=\"radio\" name=\"DidSystemChangeBelief\" value=\"Somewhat\"> Somewhat<br>
+			<input type=\"radio\" name=\"DidSystemChangeBelief\" value=\"No\"> No<br>
+			<input type=\"radio\" name=\"DidSystemChangeBelief\" value=\"Not Applicable\"> Not Applicable<br>
+	
+	
+			<br><br>
+			5. What is your willingness to adopt the system for checking article credibility?<br>
+			<input type=\"radio\" name=\"WillingnessToAdoptSystem\" value=\"Yes\" required> Definitely<br>
+			<input type=\"radio\" name=\"WillingnessToAdoptSystem\" value=\"No\"> Probably<br>
+			<input type=\"radio\" name=\"WillingnessToAdoptSystem\" value=\"Probably Not\"> Probably Not<br>
+			<input type=\"radio\" name=\"WillingnessToAdoptSystem\" value=\"Definitely Not\"> Definitely Not<br>
+			<br>
+			<input type=\"submit\" value=\"Submit\">
+			</form>";
+		}
+		else {
+			echo '<br>Survey has been submitted for this article.';
+		}
+		echo "
         </div>
     </div>
 </div>

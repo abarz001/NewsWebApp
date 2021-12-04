@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('favicon.php');
 echo '<center><br><a href="index.php">Home Page</a><br>
 <a href="logout.php">Logout</a></center><br><br>';
 if (!isset($_SESSION['adminUser']) || !$_SESSION['adminUser']) {
@@ -34,6 +35,7 @@ if (isset($_POST['btnUpdateSemantic'])){
         </table>
     </form>
     </div>
+    <?php require_once('footer.php'); ?>
 </body>
 
 </html>

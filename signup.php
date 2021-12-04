@@ -1,5 +1,6 @@
 <?php
 require 'authenticate.php';
+require_once('favicon.php');
 session_start();
 $errorMessage = 'Create a user account';
 
@@ -36,7 +37,7 @@ if (
                     '$firstName', '$lastName',
                     '$organization', '$currentDateTime',
                       null, null, 0,
-                    '$verificationCode',0,0,0,0)";
+                    '$verificationCode',0,0,0,0, null)";
             SendVerificationEmail($loginEmail, $loginPassword);
             // Insert into db
             $query_result = $conn->query($insertStatement)
@@ -114,6 +115,7 @@ if (
         </table>
     </form>
     </div>
+    <?php require_once('footer.php'); ?>
 </body>
 
 </html>

@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('favicon.php');
 echo '<div class="links"><br><a href="index.php">Home Page</a><br>
 <a href="logout.php">Logout</a></div>';
 if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
@@ -161,6 +162,7 @@ if (isset($_SESSION['userLoggedIn']) && $_SESSION['userLoggedIn'] == true) {
             </table>
         </form>
     </div>
+    <?php require_once('footer.php'); ?>
 </body>
 
 </html>
