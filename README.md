@@ -1,3 +1,3 @@
 # abarz001_cs518
-Database file = PROJECT.sql;
-Unzip vendor.zip to main www directory
+Database file = data_dump.sql.
+vendor.zip contains supporting files and should be extracted to main www directory.
